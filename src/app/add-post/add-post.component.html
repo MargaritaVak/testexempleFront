@@ -1,0 +1,21 @@
+<form (ngSubmit)="onSubmit()">
+    <h1>Добавить пост</h1>
+    <div>
+      <label for="message">Сообщение:</label>
+      <textarea id="message" name="message" [(ngModel)]="message"></textarea>
+    </div>
+    <div>
+      <label for="media_url">Медиа:</label>
+      <input type="text" id="media_url" name="media_url" [(ngModel)]="mediaUrl">
+    </div>
+    <button type="submit">Создать пост</button>
+  </form>
+
+  <div *ngIf="isPostCreated">
+    Пост успешно создан!
+    <a href="/">Вернуться назад</a>
+  </div>
+
+  <div *ngIf="errorMessage">
+    Error creating post: {{ errorMessage }}
+  </div>

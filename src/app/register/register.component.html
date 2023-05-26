@@ -1,0 +1,77 @@
+<div class="body">
+  <form class="white-square">
+
+    <form
+      *ngIf="!isSuccessful"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+      class="form-group"
+    >
+      <h1 class="name">Регистрация</h1>
+      <form class="sign_up-form">
+        <p class="label_form">Имя</p>
+        <div class="sign_up-full-width">
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            [(ngModel)]="form.username"
+            required
+            #username="ngModel"
+          />
+          <div class="alert-danger" *ngIf="username.errors && f.submitted">
+            <div *ngIf="username.errors['required']">Требуется имя</div>
+          </div>
+        </div>
+      </form>
+
+      <form class="sign_up-form">
+        <p class="label_form">Логин</p>
+        <div class="sign_up-full-width">
+          <input
+            type="email"
+            class="form-control"
+            name="login"
+            [(ngModel)]="form.login"
+            required
+            #login="ngModel"
+          />
+          <div class="alert-danger" *ngIf="login.errors && f.submitted">
+            <div *ngIf="login.errors['required']">Требуется логин</div>
+          </div>
+        </div>
+      </form>
+
+      <form class="password-form">
+        <p class="label_form" >Пароль</p>
+        <div class="password-full-width">
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            #password="ngModel"
+          />
+          <div class="alert-danger" *ngIf="password.errors && f.submitted">
+            <div *ngIf="password.errors['required']">Требуется пароль</div>
+          </div>
+        </div>
+      </form>
+      <div class="button-authorization">
+        <button class="authorization-account-button">Зарегистрироваться</button>
+      </div>
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Signup failed!<br />{{ errorMessage }}
+      </div>
+    </form>
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      <div class="alert alert-success" *ngIf="isLoggedIn">
+        <a class="alert alert-success"  [routerLink]="['']">Перейти на главную</a>
+      </div>
+
+    </div>
+  </form>
+</div>

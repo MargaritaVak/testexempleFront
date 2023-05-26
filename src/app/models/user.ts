@@ -1,0 +1,1 @@
+export class Users{  id!: string;  login!: string;  password!: string;  username!: string;}

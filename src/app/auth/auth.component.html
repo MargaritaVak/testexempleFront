@@ -1,0 +1,73 @@
+<div class="body">
+  <form class="white-square">
+
+    <form
+      class="form-group"
+      *ngIf="!isLoggedIn"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <h1 class="name">Вход</h1>
+      <form class="login-form">
+        <p class="label_form">Логин</p>
+        <div class="login-full-width">
+          <input
+            type="text"
+            class="form-control"
+            name="email"
+            [(ngModel)]="form.login"
+            required
+            #email="ngModel"
+          />
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="email.errors && f.submitted"
+          >
+            Требуется логин!
+          </div>
+        </div>
+      </form>
+
+      <form class="password-form">
+        <p class="label_form">Пароль</p>
+        <div class="password-full-width">
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="6"
+            #password="ngModel"
+          />
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="password.errors && f.submitted"
+          >
+            <div *ngIf="password.errors['required']">Требуется пароль</div>
+          </div>
+        </div>
+      </form>
+
+      <div class="button-role">
+        <button  class="button-select-role">Войти</button>
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="f.submitted && isLoginFailed"
+      >
+        Login failed: {{ errorMessage }}
+      </div>
+    </form>
+  </form>
+  <div class="alert alert-success" *ngIf="isLoggedIn">
+    <a class="alert alert-success"  [routerLink]="['']">Перейти на главную</a>
+  </div>
+
+
+</div>

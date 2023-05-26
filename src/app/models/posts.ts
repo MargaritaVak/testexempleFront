@@ -1,0 +1,1 @@
+export class Posts{  id!: string;  login!: string;  message!: string;  media_url!: string;  created_at!:string;}

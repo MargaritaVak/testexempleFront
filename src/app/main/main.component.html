@@ -1,0 +1,40 @@
+<header>
+  <div class="spacer"></div>
+  <h1>Делись!</h1>
+  <div class="spacer"></div>
+  <div *ngIf="!isLoggedIn">
+    <button [routerLink]="'/auth'">Вход</button>
+    <button  [routerLink]="'/register'">Регистрация</button>
+  </div>
+  <div *ngIf="isLoggedIn">
+    <button (click)="addPost()">Добавить запись</button>
+    <button (click)="logout()">Выход</button>
+  </div>
+</header>
+ <main *ngIf="!isAddingPost">
+  <div>
+    <div *ngFor="let post of pagedPosts">
+      <p>Автор: {{ post.login}}</p>
+      <p>Сообщение: {{ post.message }}</p>
+      <ng-container *ngIf="post.media_url">
+      <img [src]="post.media_url" alt="Media">
+      </ng-container>
+      <p>Время: {{ post.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</p>
+
+      <div *ngIf="editedPostId === post.id">
+        <textarea [(ngModel)]="editedPostMessage"></textarea>
+        <input  [(ngModel)]="editedPostMedia">
+        <button (click)="updatePost(post.id, editedPostMessage,editedPostMedia)">Сохранить</button>
+        <button (click)="cancelEdit()">Отменить</button>
+      </div>
+
+      <button  class="edit" *ngIf="isLoggedIn && post.login === tokenStorageService.getUser().user[0].login" (click)="editPost(post)">Редактировать</button>
+      <button class="edit" *ngIf="isLoggedIn && post.login === tokenStorageService.getUser().user[0].login" (click)="deletePost(post)">Удалить</button>
+      <hr>
+    </div>
+    <div>
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Предыдущая страница</button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Следующая страница</button>
+    </div>
+  </div>
+</main>
