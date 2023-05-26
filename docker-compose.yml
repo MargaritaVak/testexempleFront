@@ -1,1 +1,30 @@
-version: '3'services:  db:    image: postgres    environment:      POSTGRES_USER: postgres      POSTGRES_PASSWORD: 1691    volumes:      -  backend:    build:      context: ./backend      dockerfile: Dockerfile    ports:      - 3001:3001    depends_on:      - db  frontend:    build:      context: ./frontend      dockerfile: Dockerfile    ports:      - 4200:4200    depends_on:      - backendvolumes:  postgres-data:
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15.1
+    restart: always
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: db_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1691
+
+
+  backend:
+    image: my-app:latest
+    ports:
+      - 3001:3001
+    depends_on:
+      - postgres
+
+  frontend:
+    image: my-app-client:latest
+    ports:
+      - 4200:4200
+    depends_on:
+      - backend
+
+volumes:
+  database: {}
