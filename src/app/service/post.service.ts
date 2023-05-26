@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Posts} from "../models/posts";
 import {Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment} from "../../environment";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -11,9 +12,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class PostService {
-  private createUrl = 'http://localhost:3001/post-create'; // Замените на ваш базовый URL сервера
-  private getPostUrl='http://localhost:3001/posts'
-  private postUrl='http://localhost:3001/post'
+  private createUrl = `${environment.URL_server}/post-create`; // Замените на ваш базовый URL сервера
+  private getPostUrl=`${environment.URL_server}/posts`
+  private postUrl=`${environment.URL_server}/post`
 
   constructor(private http: HttpClient) { }
 

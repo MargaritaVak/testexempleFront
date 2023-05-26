@@ -13,14 +13,14 @@ services:
 
 
   backend:
-    image: my-app:latest
+    image: margaritavak/test_task_back:latest
     ports:
       - 3001:3001
     depends_on:
       - postgres
 
   frontend:
-    image: my-app-client:latest
+    image: margaritavak/test_task:latest
     ports:
       - 4200:4200
     depends_on:
